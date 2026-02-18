@@ -13,9 +13,7 @@ const Body = () => {
   const loggedUser = useSelector((store) => store.user);
 
   const fetchUser = async () => {
-    // 1. Prevent loop: Don't fetch if we are already on login page
-    if (location.pathname === "login") return;
-    // 2. Optimization: Don't fetch if user is already in Redux store
+    if (location.pathname === "/login") return;
     if (loggedUser) return;
     try {
       const user = await axios.get(BASE_URL + "/profile/view", {
@@ -24,7 +22,7 @@ const Body = () => {
       dispatch(addUser(user.data));
     } catch (err) {
       if (err.response?.status == 401) {
-        navigate("/login");
+        navigate("/");
       }
       console.log("Auth check failed", err);
     }
@@ -35,9 +33,11 @@ const Body = () => {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen bg-[#09090f] text-white">
       <NavBar />
-      <Outlet />
+      <main className="pt-16">
+        <Outlet />
+      </main>
     </div>
   );
 };

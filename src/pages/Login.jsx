@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,16 +26,16 @@ const Login = () => {
         },
       );
       dispatch(addUser(response.data.data));
-      navigate("/");
+      navigate("/feed");
     } catch (error) {
-      console.log(error);
+      setErrors(error.response.data.message);
     }
   }
 
   return (
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-screen flex-col justify-center bg-[#09090f]">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">
+        <h2 className="text-center text-2xl/9 font-bold tracking-tight text-white">
           Sign in to your account
         </h2>
       </div>
@@ -92,7 +93,7 @@ const Login = () => {
               />
             </div>
           </div>
-
+          <p className="text-red-500 text-center">{errors}</p>
           <div>
             <button
               type="submit"
