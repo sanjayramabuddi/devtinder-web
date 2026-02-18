@@ -1,75 +1,103 @@
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/store/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const NavBar = () => {
   const loggedUser = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   async function handleLogout() {
     try {
-      await axios.post(
-        BASE_URL + "/logout",
-        {},
-        {
-          withCredentials: true,
-        },
-      );
+      await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
   }
 
   return (
-    <div className="navbar bg-base-300 shadow-sm">
-      <div className="flex-1">
-        <Link to="/feed" className="btn btn-ghost text-xl">
-          🥽 devTinder
-        </Link>
-      </div>
-      {loggedUser && (
-        <div className="flex gap-2 items-center">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
-          />
-          <p>Welcome, {loggedUser.firstName} !!</p>
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img alt="user profile picture" src={loggedUser.imageURL} />
-              </div>
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      style={{
+        background: scrollY > 40 ? "rgba(10,10,15,0.85)" : "transparent",
+        backdropFilter: scrollY > 40 ? "blur(16px)" : "none",
+        borderBottom:
+          scrollY > 40 ? "1px solid rgba(255,255,255,0.05)" : "none",
+      }}
+    >
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <Link to="/">
+          <div className="flex items-center gap-2 cursor-pointer">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center text-xs font-bold">
+              &lt;/&gt;
             </div>
-            <ul
-              tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <Link to="/profile" className="justify-between">
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li onClick={handleLogout}>
-                <a>Logout</a>
-              </li>
-            </ul>
+            <span className="font-display text-xl font-bold tracking-tight">
+              DevMatch
+            </span>
           </div>
-        </div>
-      )}
-    </div>
+        </Link>
+
+        {!loggedUser ? (
+          <div className="flex items-center gap-3">
+            <Link to="/login">
+              <button className="text-sm text-white/60 hover:text-white transition-colors px-4 py-2 cursor-pointer">
+                Log in
+              </button>
+            </Link>
+            <Link to="/signup">
+              <button className="btn-glow text-sm font-medium px-5 py-2 rounded-lg bg-gradient-to-r from-violet-600 to-violet-500 hover:from-violet-500 hover:to-violet-400 transition-all cursor-pointer">
+                Join Free
+              </button>
+            </Link>
+          </div>
+        ) : (
+          <div className="flex gap-2 items-center">
+            <p className="text-sm text-white/70">
+              Welcome, {loggedUser.firstName}!
+            </p>
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img alt="user profile picture" src={loggedUser.imageURL} />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                <li>
+                  <Link to="/profile" className="justify-between">
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li onClick={handleLogout}>
+                  <a>Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
   );
 };
 
