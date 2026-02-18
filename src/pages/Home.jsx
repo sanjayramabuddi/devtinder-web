@@ -3,7 +3,7 @@ import { DEVS } from "../utils/constants";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function LandingPage() {
+export default function Home() {
   const loggedUser = useSelector((store) => store.user);
   const [cardIndex, setCardIndex] = useState(0);
   const [swipeDir, setSwipeDir] = useState(null);
@@ -24,7 +24,7 @@ export default function LandingPage() {
   const nextDev = DEVS[(cardIndex + 1) % DEVS.length];
 
   return (
-    <div className="min-h-screen bg-[#09090f] text-white flex flex-col items-center justify-center px-6 py-16 relative overflow-hidden">
+    <div className="min-h-full text-white flex flex-col items-center justify-center px-6 py-16 relative overflow-hidden">
       <div className="mesh absolute inset-0 pointer-events-none" />
 
       <div
@@ -32,7 +32,7 @@ export default function LandingPage() {
         style={{
           backgroundImage:
             "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)",
-          backgroundSize: "56px 56px",
+          backgroundSize: "50px 50px",
         }}
       />
 

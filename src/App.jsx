@@ -6,7 +6,7 @@ import AuthLayout from "./layouts/AuthLayout";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import HomePage from "./pages/HomePage";
+import Home from "./pages/Home";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
 
@@ -20,7 +20,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route element={<Body />}>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<Home />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="/profile" element={<Profile />} />
           </Route>

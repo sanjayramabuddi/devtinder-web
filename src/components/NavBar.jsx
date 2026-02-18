@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/store/userSlice";
@@ -9,13 +8,6 @@ const NavBar = () => {
   const loggedUser = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   async function handleLogout() {
     try {
@@ -28,15 +20,7 @@ const NavBar = () => {
   }
 
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      style={{
-        background: scrollY > 40 ? "rgba(10,10,15,0.85)" : "transparent",
-        backdropFilter: scrollY > 40 ? "blur(16px)" : "none",
-        borderBottom:
-          scrollY > 40 ? "1px solid rgba(255,255,255,0.05)" : "none",
-      }}
-    >
+    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link to="/">
           <div className="flex items-center gap-2 cursor-pointer">
