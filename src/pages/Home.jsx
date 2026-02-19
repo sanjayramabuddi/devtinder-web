@@ -24,9 +24,7 @@ export default function Home() {
   const nextDev = DEVS[(cardIndex + 1) % DEVS.length];
 
   return (
-    <div className="min-h-full text-white flex flex-col items-center justify-center px-6 py-16 relative overflow-hidden">
-      <div className="mesh absolute inset-0 pointer-events-none" />
-
+    <div className="min-h-full text-white flex flex-col items-center justify-center px-6 py-12 relative overflow-hidden">
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.025]"
         style={{

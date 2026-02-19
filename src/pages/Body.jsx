@@ -35,7 +35,7 @@ const Body = () => {
   return (
     <div className="min-h-screen bg-[#09090f] text-white">
       <NavBar />
-      <main className="pt-16">
+      <main className="pt-18">
         <Outlet />
       </main>
     </div>

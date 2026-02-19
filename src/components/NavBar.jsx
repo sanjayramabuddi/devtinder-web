@@ -3,6 +3,7 @@ import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/store/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { removeFeed } from "../utils/store/feedSlice";
 
 const NavBar = () => {
   const loggedUser = useSelector((store) => store.user);
@@ -13,6 +14,7 @@ const NavBar = () => {
     try {
       await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
+      dispatch(removeFeed());
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -20,7 +22,7 @@ const NavBar = () => {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-violet-900/40 border-3 shadow-md">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link to="/">
           <div className="flex items-center gap-2 cursor-pointer">
