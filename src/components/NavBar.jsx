@@ -21,12 +21,16 @@ const NavBar = () => {
     }
   }
 
+  function closeDropdown() {
+    document.activeElement.blur();
+  }
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-violet-900/40 border-3 shadow-md">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link to="/">
           <div className="flex items-center gap-2 cursor-pointer">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center text-xs font-bold">
+            <div className="w-8 h-8 rounded-lg bg-linear-to-br from-violet-500 to-cyan-500 flex items-center justify-center text-xs font-bold">
               &lt;/&gt;
             </div>
             <span className="font-display text-xl font-bold tracking-tight">
@@ -43,7 +47,7 @@ const NavBar = () => {
               </button>
             </Link>
             <Link to="/signup">
-              <button className="btn-glow text-sm font-medium px-5 py-2 rounded-lg bg-gradient-to-r from-violet-600 to-violet-500 hover:from-violet-500 hover:to-violet-400 transition-all cursor-pointer">
+              <button className="btn-glow text-sm font-medium px-5 py-2 rounded-lg bg-linear-to-r from-violet-600 to-violet-500 hover:from-violet-500 hover:to-violet-400 transition-all cursor-pointer">
                 Join Free
               </button>
             </Link>
@@ -65,17 +69,22 @@ const NavBar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
-                <li>
+                <li onClick={closeDropdown}>
                   <Link to="/profile" className="justify-between">
                     Profile
                   </Link>
                 </li>
-                <li>
+                <li onClick={closeDropdown}>
                   <a>Settings</a>
                 </li>
-                <li onClick={handleLogout}>
+                <li
+                  onClick={() => {
+                    closeDropdown();
+                    handleLogout();
+                  }}
+                >
                   <a>Logout</a>
                 </li>
               </ul>
