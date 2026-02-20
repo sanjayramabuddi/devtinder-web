@@ -12,7 +12,13 @@ const UserCard = ({ user }) => {
         <h2 className="card-title">{firstName + " " + lastName}</h2>
         <p>{about}</p>
         <p>{gender.charAt(0).toUpperCase() + gender.slice(1) + " - " + age}</p>
-        <p>{skills.map((s) => s.charAt(0).toUpperCase() + s.slice(1)).join(", ")}</p>
+        <p>
+          {Array.isArray(skills)
+            ? skills
+                .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+                .join(", ")
+            : skills}
+        </p>
         <div className="card-actions flex justify-center">
           <button className="btn btn-primary">Ignored</button>
           <button className="btn btn-secondary">Interested</button>
