@@ -9,6 +9,8 @@ import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
+import Connection from "./pages/Connection";
+import ConnRequest from "./pages/ConnRequest";
 
 import "./App.css";
 
@@ -23,6 +25,8 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/connections" element={<Connection />} />
+            <Route path="/requests" element={<ConnRequest />} />
           </Route>
 
           <Route element={<AuthLayout />}>
