@@ -1,7 +1,8 @@
 import React from "react";
 
-const UserCard = ({ user }) => {
-  const { firstName, lastName, about, imageURL, gender, age, skills } = user;
+const UserCard = ({ user, handleSendRequests }) => {
+  const { _id, firstName, lastName, about, imageURL, gender, age, skills } =
+    user;
 
   return (
     <div className="card bg-base-100 w-96 shadow-sm">
@@ -20,8 +21,18 @@ const UserCard = ({ user }) => {
             : skills}
         </p>
         <div className="card-actions flex justify-center">
-          <button className="btn btn-primary">Ignored</button>
-          <button className="btn btn-secondary">Interested</button>
+          <button
+            className="btn btn-primary"
+            onClick={() => handleSendRequests("ignored", _id)}
+          >
+            Ignored
+          </button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => handleSendRequests("interested", _id)}
+          >
+            Interested
+          </button>
         </div>
       </div>
     </div>
