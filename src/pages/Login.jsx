@@ -4,6 +4,7 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/store/userSlice";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
@@ -103,6 +104,9 @@ const Login = () => {
               Sign in
             </button>
           </div>
+          <p>
+            Don't have an account? <Link to="/signup" className="border-b-2">Sign Up</Link>
+          </p>
         </div>
       </div>
     </div>

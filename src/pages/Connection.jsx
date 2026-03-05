@@ -28,22 +28,19 @@ const Connection = () => {
       <h2 className="text-center font-bold text-3xl mt-5">Connections</h2>
       {connections?.length > 0 ? (
         <ul className="list bg-base-100 rounded-box shadow-md max-w-lg mx-auto mt-5">
-          <li className="list-row">
-            <div>
-              <img
-                className="size-10 rounded-box"
-                src={connections[0].imageURL}
-              />
-            </div>
-            <div>
+          {connections.map((connect) => (
+            <li className="list-row">
               <div>
-                {connections[0].firstName + " " + connections[0].lastName}
+                <img className="size-10 rounded-box" src={connect.imageURL} />
               </div>
-              <div className="text-xs uppercase font-semibold opacity-60">
-                {connections[0].about}
+              <div>
+                <div>{connect.firstName + " " + connect.lastName}</div>
+                <div className="text-xs uppercase font-semibold opacity-60">
+                  {connect.about}
+                </div>
               </div>
-            </div>
-          </li>
+            </li>
+          ))}
         </ul>
       ) : (
         <div className="flex justify-center mt-50">No connections found</div>
