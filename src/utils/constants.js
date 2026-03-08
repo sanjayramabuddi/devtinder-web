@@ -1,8 +1,9 @@
-export const BASE_URL = "http://localhost:3000";
+// export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "/api";
 
 export const DEVS = [
   {
-    name: "Sanjay Ramabuddi",
+    name: "Sanjay R",
     role: "Full Stack Engineer",
     stack: ["React", "Node.js", "PostgreSQL"],
     avatar: "SR",
